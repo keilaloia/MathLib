@@ -10,6 +10,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathTest", "MathTest\MathTe
 		{A779A598-813E-4782-93A0-ED68A6D16630} = {A779A598-813E-4782-93A0-ED68A6D16630}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Components", "Components\Components.vcxproj", "{3BD26507-5C88-46A6-A4F4-1FE3941F7717}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A779A598-813E-4782-93A0-ED68A6D16630} = {A779A598-813E-4782-93A0-ED68A6D16630}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -34,6 +39,14 @@ Global
 		{C91F2A34-D2DA-41D1-A6F6-7C32B86B0A1B}.Release|x64.Build.0 = Release|x64
 		{C91F2A34-D2DA-41D1-A6F6-7C32B86B0A1B}.Release|x86.ActiveCfg = Release|Win32
 		{C91F2A34-D2DA-41D1-A6F6-7C32B86B0A1B}.Release|x86.Build.0 = Release|Win32
+		{3BD26507-5C88-46A6-A4F4-1FE3941F7717}.Debug|x64.ActiveCfg = Debug|x64
+		{3BD26507-5C88-46A6-A4F4-1FE3941F7717}.Debug|x64.Build.0 = Debug|x64
+		{3BD26507-5C88-46A6-A4F4-1FE3941F7717}.Debug|x86.ActiveCfg = Debug|Win32
+		{3BD26507-5C88-46A6-A4F4-1FE3941F7717}.Debug|x86.Build.0 = Debug|Win32
+		{3BD26507-5C88-46A6-A4F4-1FE3941F7717}.Release|x64.ActiveCfg = Release|x64
+		{3BD26507-5C88-46A6-A4F4-1FE3941F7717}.Release|x64.Build.0 = Release|x64
+		{3BD26507-5C88-46A6-A4F4-1FE3941F7717}.Release|x86.ActiveCfg = Release|Win32
+		{3BD26507-5C88-46A6-A4F4-1FE3941F7717}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
