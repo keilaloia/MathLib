@@ -62,6 +62,25 @@ int main()
 	// reversing the operands will give me the back-facing vector.
 	assert(((cross(vec3{ 0,1,0 }, vec3{ 1,0,0 })
 		== vec3{ 0,0,-1 })));
+
+	assert(fequal(lerp(.23, 124, 0), .23));
+	assert(fequal(lerp(.23, 124, 1), 124));
+
+	assert(fequal(quadBezier(15, 40, 21, 0), 15));
+	assert(fequal(quadBezier(15, 40, 21, 1), 21));
+
+
+
+	assert(fequal(hermiteSpline(15, 40, 21, 10, 0), 15));
+	assert(fequal(hermiteSpline(15, 40, 21, 10, 1), 21));
+
+	float yeah = cardinalSpline(15, 40, 21, .1f, 1);
+	assert(fequal(cardinalSpline(15, 40, 21, .2f, 0), 15));
+	assert(fequal(cardinalSpline(15, 40, 21, .1f, 1), 21));
+
+
+	assert(fequal(catRomSpline(15, 40, 21, 0), 15));
+	assert(fequal(catRomSpline(15, 40, 21, 1), 21));
 	getchar();
 	return 0;
 }

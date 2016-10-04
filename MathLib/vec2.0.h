@@ -55,3 +55,13 @@ vec2 perp(const vec2 &v);
 float angle(const vec2 &v);
 //find angle between two vectors
 vec2 fromAngle(float a);
+
+vec2 lerp(const vec2 start, const  vec2 end, float alpha);
+
+vec2 quadBezier(const vec2 start, const  vec2 mid, const  vec2 end, float alpha);
+
+vec2 hermiteSpline(const vec2 start, const  vec2 s_tan, const  vec2 end, const  vec2 e_tan, float alpha);
+
+vec2 cardinalSpline(const vec2 start, const  vec2 mid, const vec2 end, float tightness, float alpha);
+
+vec2 catRomSpline(const vec2 start, const  vec2 mid, const  vec2 end, float alpha);
