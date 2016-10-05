@@ -6,7 +6,7 @@ class Transform
 public:
 
 	Transform();
-	Transform(float x, float y,int Sprint, int up , int down, int left , int right );
+	Transform(float x, float y);
 	vec2 position{ 200,200 };
 	vec2 scale;
 	float facing;
