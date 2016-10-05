@@ -65,3 +65,5 @@ vec2 hermiteSpline(const vec2 start, const  vec2 s_tan, const  vec2 end, const  
 vec2 cardinalSpline(const vec2 start, const  vec2 mid, const vec2 end, float tightness, float alpha);
 
 vec2 catRomSpline(const vec2 start, const  vec2 mid, const  vec2 end, float alpha);
+
+vec2 Velocity(vec2 position, float time);

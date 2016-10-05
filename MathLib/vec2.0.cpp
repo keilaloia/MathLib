@@ -153,4 +153,11 @@ vec2 catRomSpline(const vec2 start, const vec2 mid, const vec2 end, float alpha)
 	return cardinalSpline(start, mid, end, .5, alpha);
 }
 
+vec2 Velocity(vec2 position, float time)
+{
+	vec2 v = position / time;
+		
+	return v;
+}
+
 
