@@ -1,10 +1,15 @@
 #pragma once
 #include <cstdio>
 
-struct vec2
+union vec2
 {
-	float x, y, z;
-
+	float v[2];
+	struct
+	{
+		float x, y;
+	};
+	float operator[](unsigned idx) const;
+	float &operator[](unsigned idx);
 };
 
 //component subtraction

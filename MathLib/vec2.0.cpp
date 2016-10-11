@@ -160,4 +160,12 @@ vec2 Velocity(vec2 position, float time)
 	return v;
 }
 
+float vec2::operator[](unsigned idx) const
+{
+	return v[idx];
+}
 
+float & vec2::operator[](unsigned idx)
+{
+	return v[idx];
+}

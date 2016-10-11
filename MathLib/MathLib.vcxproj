@@ -119,12 +119,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="flops.cpp" />
+    <ClCompile Include="mat2.cpp" />
+    <ClCompile Include="Mat3.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="vec2.0.cpp" />
     <ClCompile Include="vec3.0.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="flops.h" />
+    <ClInclude Include="mat2.h" />
+    <ClInclude Include="Mat3.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="vec2.0.h" />
     <ClInclude Include="vec3.0.h" />

@@ -1,8 +1,11 @@
 #pragma once
-struct vec3
+union vec3
 {
-	float x, y,z;
-
+	struct
+	{
+		float x, y, z;
+	};
+	
 };
 
 //component subtraction
