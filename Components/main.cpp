@@ -8,7 +8,7 @@
 #include "SpaceshipControllerh.h"
 int main()
 {
-	// transform represents position
+	// transform represents m_position
 	// rigidbody represents moving(physical state)
 	// locomotion represents movement
 	//spacecontroller is controls
@@ -22,7 +22,7 @@ int main()
 
 
 	Transform playerTransform{ 400, 200 };
-
+	
 	
 
 	RigidBody playerRigidbody;
@@ -50,10 +50,10 @@ int main()
 
 
 	
-		if (playerTransform.position.x < 0) playerTransform.position.x = 800;
-		else if (playerTransform.position.x > 800) playerTransform.position.x = 0;
-		if (playerTransform.position.y < 0) playerTransform.position.y = 800;
-		else if (playerTransform.position.y > 800) playerTransform.position.y = 0;
+		if (playerTransform.m_position.x < 0) playerTransform.m_position.x = 800;
+		else if (playerTransform.m_position.x > 800) playerTransform.m_position.x = 0;
+		if (playerTransform.m_position.y < 0) playerTransform.m_position.y = 800;
+		else if (playerTransform.m_position.y > 800) playerTransform.m_position.y = 0;
 
 		
 
