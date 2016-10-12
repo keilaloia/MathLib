@@ -1,11 +1,14 @@
 #pragma once
+#include "vec2.0.h"
 union vec3
 {
 	struct
 	{
 		float x, y, z;
 	};
-	
+	vec2 xy;
+	vec2  operator[](unsigned idx) const;
+	vec2 &operator[](unsigned idx);
 };
 
 //component subtraction
