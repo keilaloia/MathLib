@@ -2,11 +2,11 @@
 #include "sfwdraw.h"
 
 
-Transform::Transform(): m_facing(0), m_position({ 0,0 }), m_scale({ 28,8 })
-{
-
-
-}
+//Transform::Transform(): m_facing(0), m_position({ 0,0 }), m_scale({ 28,8 })
+//{
+//
+//
+//}
 
 Transform::Transform(float x, float y)// : Transform()
 {
@@ -14,7 +14,8 @@ Transform::Transform(float x, float y)// : Transform()
 	m_position.y = y;
 
 	m_facing = 0;
-	m_scale = {12,12};
+	m_scale = {1,1};
+	m_parent = nullptr;
 }
 
 
@@ -34,7 +35,20 @@ mat3 Transform::getLocalTransform() const
 	mat3 T = translate(m_position.x, m_position.y);
 	mat3 R = rotation(m_facing);
 	
-	return T * S * R;
+	return T * R * S;
+}
+
+mat3 Transform::getGlobalTransform() const
+{
+	if (m_parent == nullptr)
+		return getLocalTransform();
+	else
+		return m_parent->getGlobalTransform() * getLocalTransform();
+}
+
+vec2 Transform::getGlobalPosition() const
+{
+	return getGlobalTransform()[2].xy;
 }
 
 void Transform::debugDraw(const mat3 &T) const
@@ -42,24 +56,20 @@ void Transform::debugDraw(const mat3 &T) const
 	
 
 
-	mat3 L = T * getLocalTransform();
+	mat3 L = T * getGlobalTransform();
 	
 	vec3 pos = L[2];
+	//parent position
+	vec3 p_pos = m_parent ? m_parent->getGlobalTransform()[2] : pos;
 
-	vec3 right = pos+L*vec3{ 7,0,0 };
-	vec3 up    = pos+L*vec3{ 0,1,0 };
+	vec3 right = L * vec3{ 10,0,1 };
+	vec3 up    = L * vec3{ 0,10,1 };
 	
 	//vec2 dirEnd = m_position + (getDirection() * m_scale.x);
 	
-	sfw::drawLine(pos.x, pos.y,
-		right.x , right.y, RED);
-
-
-
-	//vec2 upEnd = m_position - perp(getDirection() * m_scale.y);
-
-	sfw::drawLine(pos.x, pos.y,
-		up.x, up.y, GREEN);
+	sfw::drawLine(pos.x, pos.y,right.x , right.y, RED);
+	sfw::drawLine(pos.x, pos.y,up.x, up.y, GREEN);
+	sfw::drawLine(p_pos.x, p_pos.y, pos.x, pos.y, CYAN);
 
 	sfw::drawCircle(pos.x, pos.y,12, 12, RED);
 

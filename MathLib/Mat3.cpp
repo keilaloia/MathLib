@@ -132,9 +132,9 @@ mat3 operator * (const mat3 & A, const mat3 & B)
 
 vec3 operator * (const mat3 & A, const vec3 & B)
 {
-	return vec3{ (A.m[0] * B.x) + (A.m[1] * B.y) + (A.m[2] * B.z),
-				 (A.m[3] * B.x) + (A.m[4] * B.y) + (A.m[5] * B.z),
-				 (A.m[6] * B.x) + (A.m[7] * B.y) + (A.m[8] * B.z)
+	return vec3{ (A.m[0] * B.x) + (A.m[3] * B.y) + (A.m[6] * B.z),
+				 (A.m[1] * B.x) + (A.m[4] * B.y) + (A.m[7] * B.z),
+				 (A.m[2] * B.x) + (A.m[5] * B.y) + (A.m[8] * B.z)
 			   };
 
 }
@@ -189,11 +189,19 @@ mat3 scale(float W, float H)
 }
 mat3 rotation(float a)
 {
-	return mat3{ {cos(a), -sin(a), 0, sin(a), cos(a), 0, 0,0,1} };
+	return mat3{ {cos(a), sin(a), 0, -sin(a), cos(a), 0, 0,0,1} };
 }
 mat3 translate(float X, float Y)
 {
-	return mat3{ {1,0,X, 0,1,Y,0,0,1 } };
-};
+	return mat3{ {1,0,0, 0,1,0, X,Y,1 } };
+}
 	
+
+
+/*
+	First column is the right direction
+	second column is the up direction
+	third column is the position
+
+*/
 

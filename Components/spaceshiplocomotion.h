@@ -18,9 +18,11 @@ class SpaceshipLocomotion
 	//float turnSpeed; //rate of change for our turn
 
 	float turnSpeed;
-	float speed; //movement speed
+	
 	float maxSpeed;
 public:
+	float speed; //movement speed
+	
 	SpaceshipLocomotion();
 
 	void doThrust(float value);

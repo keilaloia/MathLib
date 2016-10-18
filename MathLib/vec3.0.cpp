@@ -94,3 +94,7 @@ vec3 cross(const vec3 & lhs, const vec3 & rhs)
 					(lhs.x*rhs.y) - (lhs.y*rhs.x) };
 }
 
+vec3 operator *(const vec3 &lhs, const vec3 &rhs)
+{
+	return{ lhs.x * rhs.x,lhs.y * rhs.y, lhs.z * rhs.z };
+}

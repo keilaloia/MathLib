@@ -23,7 +23,9 @@ vec3 operator/(const vec3 &lhs, float rhs);
 
 //unary Negation
 vec3 operator-(const vec3 &v);
+// multiplayer 2 vector 3's
 
+vec3 operator *(const vec3 &lhs, const vec3 &rhs);
 //Relational Operators
 //component equivalence
 bool operator==(const vec3 &lhs, const vec3 &rhs);

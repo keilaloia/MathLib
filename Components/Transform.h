@@ -6,7 +6,8 @@ class Transform
 {
 public:
 
-	Transform();
+	//Transform();
+	Transform * m_parent;
 	Transform(float x, float y);
 	vec2 m_position/*{ 200,200 }*/;
 	vec2 m_scale;
@@ -16,8 +17,9 @@ public:
 	vec2 getDirection() const;
 	void setDirection(const vec2 &dir);
 	mat3 getLocalTransform() const;
-
+	mat3 getGlobalTransform() const;
 	
+	vec2 getGlobalPosition()const;
 
 	void debugDraw(const mat3 &T = mat3Identity())const;
 };
