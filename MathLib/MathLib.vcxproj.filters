@@ -44,13 +44,13 @@
     <ClCompile Include="vec3.0.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="flops.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="mat2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mat3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="flops.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

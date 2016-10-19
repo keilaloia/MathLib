@@ -69,7 +69,7 @@ void Transform::debugDraw(const mat3 &T) const
 	
 	sfw::drawLine(pos.x, pos.y,right.x , right.y, RED);
 	sfw::drawLine(pos.x, pos.y,up.x, up.y, GREEN);
-	sfw::drawLine(p_pos.x, p_pos.y, pos.x, pos.y, CYAN);
+	//sfw::drawLine(p_pos.x, p_pos.y, pos.x, pos.y, CYAN);
 
 	sfw::drawCircle(pos.x, pos.y,12, 12, RED);
 
