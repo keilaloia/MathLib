@@ -106,7 +106,7 @@ vec2 fromAngle(float a)
 	return vec2{ cos(a), sin(a) };
 }
 
-vec2 lerp(const vec2 start, const vec2 end, float alpha)
+vec2 lerp(const vec2 &start, const vec2 &end, float alpha)
 {
 	return (1 - alpha)*start + (alpha)*end;
 

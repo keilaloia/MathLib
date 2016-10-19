@@ -7,6 +7,7 @@
 #include "spaceshiplocomotion.h"
 #include "SpaceshipControllerh.h"
 #include "PlanetaryMotor.h"
+#include "spaceshiprender.h"
 int main()
 {
 	// transform represents m_position
@@ -18,8 +19,9 @@ int main()
 	
 
 
-	//SpaceshipController spacectrl('W', 'S', 'D', 'A',' ');
-	`
+	SpaceshipController spacectrl('W', 'S', 'D', 'A',' ');
+	
+
 	//SpaceshipController First(' ',' ', KEY_RIGHT, KEY_LEFT, ' ');
 
 	//SpaceshipController Second(' ', ' ', '1', '2', ' ');
@@ -27,12 +29,12 @@ int main()
 	//SpaceshipController Third(' ', ' ', 'Z', 'X', ' ');
 
 
-	//Transform playerTransform{ 400, 200 };
+	Transform playerTransform{ 400, 200 };
 	//Transform ST1(50, 0);
 	//Transform ST2(50, 0);
 	//Transform ST3(50, 0);
 	//
-	//RigidBody playerRigidbody;
+	RigidBody playerRigidbody;
 	//RigidBody FirstRigidbody;
 	//RigidBody SecondRigidbody;
 	//RigidBody ThirdRigidbody;
@@ -46,7 +48,7 @@ int main()
 	////ST3.m_parent = &playerTransform;
 
 	//
-	//SpaceshipLocomotion playerLoco;
+	SpaceshipLocomotion playerLoco;
 	//SpaceshipLocomotion FirstLoco;
 	//SpaceshipLocomotion SecondLoco;
 	//SpaceshipLocomotion ThirdLoco;
@@ -54,7 +56,7 @@ int main()
 
 	////FirstLoco.speed = 100;
 	//
-	//playerRigidbody.velocity = vec2{ 0,0 };
+	playerRigidbody.velocity = vec2{ 0,0 };
 	//FirstRigidbody.velocity = vec2{ 0,0 };
 	//SecondRigidbody.velocity = vec2{ 0,0 };
 	//ThirdRigidbody.velocity = vec2{ 0,0 };
@@ -62,11 +64,11 @@ int main()
 
 	//SpaceshipController Sunc(' ', ' ', 'Z', 'X', ' ');
 
-	
+	Transform cameraTransform;
 	Transform SunTransform{ 400,200 };
 	Transform MercuryTransform{ 30,0 };
 	Transform VenusTransform{ 60,20 };
-
+	vec2 CameraPosition = vec2{ 0,0 };
 
 
 	RigidBody SunRigidbody;
@@ -79,11 +81,11 @@ int main()
 	PlanetaryMotor Mercurymotor;
 	PlanetaryMotor Venusmotor;
 
-
+	ShipRender  ship1;
 	
 
 
-
+	
 
 
 	Sunmotor.m_rotationspeed = 1;
@@ -98,17 +100,26 @@ int main()
 
 	while (sfw::stepContext())
 	{
-		float deltaTime = sfw::getDeltaTime();	
+		float deltaTime = sfw::getDeltaTime();
+		
+		cameraTransform.m_position = lerp(cameraTransform.m_position,
+									      playerTransform.getGlobalPosition(),// + SunTransform.getGlobalPosition() / 2, 
+									      1.f);
 
+	
+		mat3 proj = translate(400, 400) * scale(2, 2);
+		mat3 view = inverse(cameraTransform.getGlobalTransform());
+		mat3 camera = proj * view;
 
 		////intergrate helps it accelerate i think or rigid body does idk :(
-		//playerRigidbody.intergrate(playerTransform, deltaTime);
-		//playerTransform.debugDraw(); 
-		////find the location playerloco= location
-		//spacectrl.update(playerLoco);
-		//playerLoco.update(playerTransform, playerRigidbody, deltaTime);
-		//playerRigidbody.debugDraw(playerTransform);
-		//
+		playerRigidbody.intergrate(playerTransform, deltaTime);
+
+		
+		//find the location playerloco= location
+		spacectrl.update(playerLoco);
+		playerLoco.update(playerTransform, playerRigidbody, deltaTime);
+		
+		
 
 		//FirstRigidbody.intergrate(ST1, deltaTime);
 		//ST1.debugDraw();
@@ -130,30 +141,33 @@ int main()
 		//SunLoco.update(MercuryTransform, MercuryRigidbody, deltaTime);
 		Sunmotor.update(SunRigidbody);
 		SunRigidbody.intergrate(SunTransform, deltaTime);
-		SunTransform.debugDraw();
+		SunTransform.debugDraw(camera);
 
 
 		//MercuryLoco.update(MercuryTransform, MercuryRigidbody, deltaTime);
 		Mercurymotor.update(MercuryRigidbody);
 		MercuryRigidbody.intergrate(MercuryTransform, deltaTime);
-		MercuryTransform.debugDraw();
+		MercuryTransform.debugDraw(camera);
 
 
 		Venusmotor.update(VenusRigidbody);
 		VenusRigidbody.intergrate(VenusTransform, deltaTime);
-		VenusTransform.debugDraw();
+		VenusTransform.debugDraw(camera);
 
+		//playerRigidbody.debugDraw(playerTransform);	// TODO: add camera matrix
+		playerTransform.debugDraw(camera);
 
-
+		ship1.drawship(playerTransform, camera);
+		
 
 	
 		//global position
 		//vec2 tpos = playerTransform.getGlobalPosition();
 
-		if (SunTransform.m_position.x < 0) SunTransform.m_position.x = 800;
-		else if (SunTransform.m_position.x > 800) SunTransform.m_position.x = 0;
-		if (SunTransform.m_position.y < 0) SunTransform.m_position.y = 800;
-		else if (SunTransform.m_position.y > 800) SunTransform.m_position.y = 0;
+		if (playerTransform.m_position.x < 0) playerTransform.m_position.x = 800;
+		else if (playerTransform.m_position.x > 800) playerTransform.m_position.x = 0;
+		if (playerTransform.m_position.y < 0) playerTransform.m_position.y = 800;
+		else if (playerTransform.m_position.y > 800) playerTransform.m_position.y = 0;
 
 	
 

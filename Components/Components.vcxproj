@@ -130,6 +130,7 @@
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="SpaceshipControllerh.cpp" />
     <ClCompile Include="SpaceshipLocomotion.cpp" />
+    <ClCompile Include="spaceshiprender.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="SpaceshipControllerh.h" />
     <ClInclude Include="spaceshiplocomotion.h" />
+    <ClInclude Include="spaceshiprender.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

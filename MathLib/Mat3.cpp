@@ -1,6 +1,7 @@
 #include "Mat3.h"
 #include "flops.h"
 #include "cmath"
+#include "Mat2.h"
 
 vec3 mat3::operator[](unsigned idx) const
 {
@@ -153,28 +154,41 @@ float determinant(const mat3 &A)
 
 mat3 inverse(const mat3 &A)
 {
-	
-	float a = A.m[0]; 
-	float b = A.m[1]; 
-	float c = A.m[2];
-	float d = A.m[3];
-	float e = A.m[4];
-	float f = A.m[5];
-	float g = A.m[6];
-	float h = A.m[7];
-	float i = A.m[8];
+	mat3 G =
+	{
+		determinant(mat2{ A.m[4],A.m[5],A.m[7],A.m[8] }),
+		determinant(mat2{ A.m[1],A.m[2],A.m[7],A.m[8] })*-1,//4
+		determinant(mat2{ A.m[1],A.m[2],A.m[4],A.m[5] }),//7
 
-	float Aa = determinant({ e,i,f,h });
-	float B = -determinant({ d,i,f,g });
-	float C =  determinant({ d,h,e,g });
-	float D = -determinant({ b,i,c,h });
-	float E =  determinant({ a,i,c,g });
-	float F = -determinant({ a,h,b,g });
-	float G =  determinant({ b,f,c,e });
-	float H = -determinant({ a,f,c,d });
-	float I =  determinant({ a,e,b,d });
+		determinant(mat2{ A.m[3],A.m[5],A.m[6],A.m[8] })*-1,//2
+		determinant(mat2{ A.m[0],A.m[2],A.m[6],A.m[8] }),//5
+		determinant(mat2{ A.m[0],A.m[2],A.m[3],A.m[5] })*-1,//8
 
-	return (1 / determinant(A)) * mat3 { Aa, B, C, D, E, F, G, H, I };
+		determinant(mat2{ A.m[3],A.m[4],A.m[6],A.m[7] }),//3
+		determinant(mat2{ A.m[0],A.m[1],A.m[6],A.m[7] })*-1,//6
+		determinant(mat2{ A.m[0],A.m[1],A.m[3],A.m[4] })
+	};
+	//float a = A.m[0]; 
+	//float b = A.m[1]; 
+	//float c = A.m[2];
+	//float d = A.m[3];
+	//float e = A.m[4];
+	//float f = A.m[5];
+	//float g = A.m[6];
+	//float h = A.m[7];
+	//float i = A.m[8];
+
+	//float Aa = determinant({ e,i,f,h });
+	//float B = -determinant({ d,i,f,g });
+	//float C =  determinant({ d,h,e,g });
+	//float D = -determinant({ b,i,c,h });
+	//float E =  determinant({ a,i,c,g });
+	//float F = -determinant({ a,h,b,g });
+	//float G =  determinant({ b,f,c,e });
+	//float H = -determinant({ a,f,c,d });
+	//float I =  determinant({ a,e,b,d });
+
+	return (1 / determinant(A)) * G;
 
 }
 
