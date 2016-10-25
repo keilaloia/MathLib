@@ -1,5 +1,6 @@
 #include "PlanetaryRender.h"
 #include "sfwdraw.h"
+#include "vec3.0.h"
 using namespace sfw;
 
 
@@ -17,7 +18,11 @@ void PlanetaryRenderer::draw(Transform & planetTrans)
 
 	vec2 pos = glob[2].xy;
 
-	drawCircle(pos.x, pos.y, size, 12U, color);
+	float xRad = magnitude(glob * vec3{ size, 0, 0 });
+	float yRad = magnitude(glob * vec3{ 0, size, 0 });
+
+	float rad = xRad > yRad ? xRad : yRad;
+	drawCircle(pos.x, pos.y, rad, 12U, color);
 	
 
 }

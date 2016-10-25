@@ -8,6 +8,7 @@
 #include "flops.h"
 #include <cfloat>
 #include <cmath>
+#include "shape.h"
 
 int main()
 {
@@ -88,7 +89,12 @@ int main()
 	assert((mat2{ 1,2,3,4 } != mat2{ 0,1,2,3 }));
 
 	assert(fequal(determinant(mat3{ 1,2,3,4,5,6,7,8,9 }), 0.0f));
-	assert((inverse(mat3{ 2,4,5,6,7,8,9,10,11 }) == mat3{ -3, 6,-3,6,-23, 14,-3,16,-10 } *(1 / 3)));
+//	assert((inverse(mat3{ 2,4,5,6,7,8,9,10,11 }) == mat3{ -3, 6,-3,6,-23, 14,-3,16,-10 } *(1 / 3)));
+	
+	mat3 mi3 = mat3Identity();
+	mat3 testing = mat3{ 1,0,2,0,3,0,4,0,0 };
+	assert(inverse(testing)*testing == mi3);
+
 
 	vec3 j = { 2,5,1 };
 
@@ -99,7 +105,23 @@ int main()
 	//assert((rotation(deg2rad(-90))* translate(10, 0) * vec3 { 0, 0, 1 }) == (vec3{ 0,-10,1 }));
 	
 	assert((rotation(deg2rad(-90)) * translate(10, 0) * rotation(deg2rad(45)) * translate(4, 0) * rotation(deg2rad(45)) * translate(6, 4) * translate(-6, 0) * vec3 { 0, 0, 1 } == vec3{ 2 * sqrtf(2), -6 - 2 * sqrtf(2),1 }));
+	Circle c = { 0,0,5 };
+
+	assert((translate(4, 0) * c == Circle{ 4,0,5 }));
+	assert((scale(2, 1) * c == Circle{ 0,0,10 }));
+	assert((scale(2, 2) * c == Circle{ 0,0,10 }));
+	assert((scale(1, 2) * c == Circle{ 0,0,10 }));
+
+	assert((scale(-1, 1) * c == Circle{ 0,0,5 }));
+	assert((rotation(45) * c == Circle{ 0,0,5 }));
+
+	AABB testA = { 1,2,3,4 };
+
+	assert((testA.min() == vec2{-2,-2 }));
+	assert((testA.max() == vec2{ 4,6 }));
+
 	
+
 	//answer 2, -8
 	getchar();
 	return 0;

@@ -1,6 +1,6 @@
 #include "Transform.h"
 #include "sfwdraw.h"
-
+#include "shapedraw.h"
 
 Transform::Transform(): m_facing(0), m_position({ 0,0 }), m_scale({ 28,8 })
 {
@@ -87,9 +87,9 @@ void Transform::debugDraw(const mat3 &T) const
 	//mat3 view   = translate(cameraPosition.x, cameraPosition.y);
 	//mat3 camera = view;
 	
-	sfw::drawLine(pos.x, pos.y,right.x , right.y, RED);
+	drawAABB(L* AABB{ 0,0,10,10 }, CYAN);
 	sfw::drawLine(pos.x, pos.y,up.x, up.y, GREEN);
 	//sfw::drawLine(p_pos.x, p_pos.y, pos.x, pos.y, CYAN);
 
-	sfw::drawCircle(pos.x, pos.y,12, 12, RED);
+	drawCircle(L*Circle{ 0,0, 10 }, RED);
 }

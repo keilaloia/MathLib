@@ -23,5 +23,5 @@ public:
 	void addForce(const vec2 &force);
 	void addImpulse(const vec2 &impulse);
 	void addTorque(float torque);
-	void debugDraw(const Transform &trans);
+	void debugDraw(const mat3& T, const Transform &trans);
 };

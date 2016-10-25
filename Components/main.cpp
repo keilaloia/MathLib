@@ -107,7 +107,7 @@ int main()
 									      1.f);
 
 	
-		mat3 proj = translate(400, 400) * scale(2, 2);
+		mat3 proj = translate(400, 400) * scale(40, 40);
 		mat3 view = inverse(cameraTransform.getGlobalTransform());
 		mat3 camera = proj * view;
 
