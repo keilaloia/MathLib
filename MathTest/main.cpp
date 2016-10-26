@@ -9,7 +9,7 @@
 #include <cfloat>
 #include <cmath>
 #include "shape.h"
-
+#include "collision.h"
 int main()
 {
 
@@ -120,7 +120,8 @@ int main()
 	assert((testA.min() == vec2{-2,-2 }));
 	assert((testA.max() == vec2{ 4,6 }));
 
-	
+	assert(collisionDetection1D(0, 2, 1, 3).result == true);
+	assert(collisionDetection1D(0, 2, 1, 3).penetrationDepth == 1);
 
 	//answer 2, -8
 	getchar();

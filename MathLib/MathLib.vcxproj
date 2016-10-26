@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="collision.cpp" />
     <ClCompile Include="flops.cpp" />
     <ClCompile Include="mat2.cpp" />
     <ClCompile Include="Mat3.cpp" />
@@ -127,6 +128,7 @@
     <ClCompile Include="vec3.0.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="collision.h" />
     <ClInclude Include="flops.h" />
     <ClInclude Include="mat2.h" />
     <ClInclude Include="Mat3.h" />

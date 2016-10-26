@@ -87,9 +87,11 @@ void Transform::debugDraw(const mat3 &T) const
 	//mat3 view   = translate(cameraPosition.x, cameraPosition.y);
 	//mat3 camera = view;
 	
-	drawAABB(L* AABB{ 0,0,10,10 }, CYAN);
-	sfw::drawLine(pos.x, pos.y,up.x, up.y, GREEN);
+	sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
 	//sfw::drawLine(p_pos.x, p_pos.y, pos.x, pos.y, CYAN);
 
 	drawCircle(L*Circle{ 0,0, 10 }, RED);
+	//drawAABB(L * AABB{ 0, 0, 10, 10 }, CYAN);
+
 }
+

@@ -29,7 +29,8 @@ int main()
 	//SpaceshipController Third(' ', ' ', 'Z', 'X', ' ');
 
 
-	Transform playerTransform{ 400, 200 };
+	Transform playerTransform{ 400, 400 };
+	playerTransform.m_scale = vec2{40,40};
 	//Transform ST1(50, 0);
 	//Transform ST2(50, 0);
 	//Transform ST3(50, 0);
@@ -107,9 +108,9 @@ int main()
 									      1.f);
 
 	
-		mat3 proj = translate(400, 400) * scale(40, 40);
+		mat3 proj = translate(400, 400) * scale(1, 1);
 		mat3 view = inverse(cameraTransform.getGlobalTransform());
-		mat3 camera = proj * view;
+		mat3 camera = proj *view;
 
 		////intergrate helps it accelerate i think or rigid body does idk :(
 		playerRigidbody.intergrate(playerTransform, deltaTime);
@@ -138,25 +139,24 @@ int main()
 		//ThirdLoco.update(ST3, ThirdRigidbody, deltaTime);
 
 
-		//SunLoco.update(MercuryTransform, MercuryRigidbody, deltaTime);
-		Sunmotor.update(SunRigidbody);
-		SunRigidbody.intergrate(SunTransform, deltaTime);
-		SunTransform.debugDraw(camera);
+		// celestial bodies
+		//Sunmotor.update(SunRigidbody);
+		//SunRigidbody.intergrate(SunTransform, deltaTime);
+		//SunTransform.debugDraw(camera);
+
+		//Mercurymotor.update(MercuryRigidbody);
+		//MercuryRigidbody.intergrate(MercuryTransform, deltaTime);
+		//MercuryTransform.debugDraw(camera);
 
 
-		//MercuryLoco.update(MercuryTransform, MercuryRigidbody, deltaTime);
-		Mercurymotor.update(MercuryRigidbody);
-		MercuryRigidbody.intergrate(MercuryTransform, deltaTime);
-		MercuryTransform.debugDraw(camera);
-
-
-		Venusmotor.update(VenusRigidbody);
-		VenusRigidbody.intergrate(VenusTransform, deltaTime);
-		VenusTransform.debugDraw(camera);
+		//Venusmotor.update(VenusRigidbody);
+		//VenusRigidbody.intergrate(VenusTransform, deltaTime);
+		//VenusTransform.debugDraw(camera);
 
 		//playerRigidbody.debugDraw(playerTransform);	// TODO: add camera matrix
 		playerTransform.debugDraw(camera);
 
+		//draws mah ship
 		ship1.drawship(playerTransform, camera);
 		
 
@@ -164,10 +164,10 @@ int main()
 		//global position
 		//vec2 tpos = playerTransform.getGlobalPosition();
 
-		if (playerTransform.m_position.x < 0) playerTransform.m_position.x = 800;
-		else if (playerTransform.m_position.x > 800) playerTransform.m_position.x = 0;
-		if (playerTransform.m_position.y < 0) playerTransform.m_position.y = 800;
-		else if (playerTransform.m_position.y > 800) playerTransform.m_position.y = 0;
+		//if (playerTransform.m_position.x < 0) playerTransform.m_position.x = 800;
+		//else if (playerTransform.m_position.x > 800) playerTransform.m_position.x = 0;
+		//if (playerTransform.m_position.y < 0) playerTransform.m_position.y = 800;
+		//else if (playerTransform.m_position.y > 800) playerTransform.m_position.y = 0;
 
 	
 

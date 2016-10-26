@@ -1,5 +1,6 @@
 #pragma once
 #include "shape.h"
+#include "Transform.h"
 
 //#include "Transform.h"
 void drawCircle(const Circle &C, unsigned color);
