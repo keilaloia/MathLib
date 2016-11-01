@@ -18,12 +18,19 @@ struct AABB
 	vec2 min() const;
 	vec2 max() const;
 };
-struct Plane{};
+struct Plane
+{
+	vec2 pos, dir;
+};
+Plane  operator*(const mat3 &T, const Plane &P);
+bool   operator*(const Plane&A, const Plane &B);
+void drawPlane(const Plane & p, unsigned color);
+
 struct Ray{};
 struct Hull{};
 
 AABB   operator*(const mat3 &T, const AABB &B);
 
-Plane  operator*(const mat3 &T, const Plane &P);
+
 Ray    operator*(const mat3 &T, const Ray &R);
 Hull   operator*(const mat3 &T, const Hull &H);

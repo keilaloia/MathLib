@@ -82,6 +82,10 @@ float dot(const vec3 & lhs, const vec3 & rhs)
 	return (lhs.x*rhs.x) + (lhs.y*rhs.y) + (lhs.z*rhs.z);
 
 }
+vec3 normal(const vec3 & v)
+{
+	return v / magnitude(v);
+}
 float angleBetween(const vec3 & lhs, const vec3 & rhs)
 {
 	return acos(dot(lhs, rhs));

@@ -119,7 +119,9 @@ int main()
 		//find the location playerloco= location
 		spacectrl.update(playerLoco);
 		playerLoco.update(playerTransform, playerRigidbody, deltaTime);
-		
+		ship1.drawship(playerTransform, camera);
+		playerTransform.debugDraw(camera);
+
 		
 
 		//FirstRigidbody.intergrate(ST1, deltaTime);
@@ -154,10 +156,8 @@ int main()
 		//VenusTransform.debugDraw(camera);
 
 		//playerRigidbody.debugDraw(playerTransform);	// TODO: add camera matrix
-		playerTransform.debugDraw(camera);
 
 		//draws mah ship
-		ship1.drawship(playerTransform, camera);
 		
 
 	

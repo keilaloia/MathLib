@@ -1,6 +1,7 @@
 #include "shape.h"
 #include "flops.h"
 
+
 Circle operator*(const mat3 &T, const Circle &C)
 {
 	Circle retval;
@@ -74,12 +75,26 @@ AABB operator*(const mat3 &T, const AABB &B)
 			maxvec.y = tp[i].y;
 		}
 	}
-	//boxxy.pos = (T * vec3{ B.pos.x, B.pos.y, 1 }).xy;
-	//float  xhe = (maxvec.x - minvec.x)/2;
-	//float  yhe = (maxvec.y - minvec.y)/2;
 
 	boxxy.pos = (maxvec + minvec) / 2;
 	boxxy.half = (maxvec - minvec) / 2;
 
 	return boxxy;
+}
+
+Plane  operator*(const mat3 &T, const Plane &P)
+{
+	Plane retval;
+
+	retval.pos = (T * vec3{ P.pos.x, P.pos.y, 1 }).xy;
+
+	retval.dir = normal(T * vec3{P.dir.x, P.dir.y, 0}).xy;
+
+	return retval;
+}
+
+bool operator==(const Plane &A, const Plane &B)
+{
+	return A.pos == B.pos && A.dir == B.dir;
+
 }

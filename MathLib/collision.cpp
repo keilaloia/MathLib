@@ -43,10 +43,10 @@ SweptCollisionData1D sweptDetection1D(float A_min, float A_max, float A_velocity
 		retval.exitTime = tL;
 		retval.entryTime = tR;
 	}
-	else if (tR > tL)
+	else 
 	{
 		retval.exitTime = tR;
-		retval.exitTime = tL;
+		retval.entryTime = tL;
 	}
 
 	return retval;
@@ -68,7 +68,7 @@ CollisionData boxCollision(const AABB & A, const AABB & B)
 		retval.penetrationDepth = Y.penetrationDepth;
 		retval.collisionNormal = vec2{ 0 , Y.collisionNormal };
 	}
-	else //if (x.penetrationDepth < y.penetrationDepth)
+	else
 	{
 		retval.penetrationDepth = X.penetrationDepth;
 		retval.collisionNormal = vec2{ X.collisionNormal , 0 };
@@ -77,6 +77,94 @@ CollisionData boxCollision(const AABB & A, const AABB & B)
 
 	return retval;
 }
+
+CollisionDataSwept boxCollisionSwept(const AABB & A, const vec2 & dA, const AABB & B, const vec2 & dB)
+{
+	SweptCollisionData1D X = sweptDetection1D(A.min().x, A.max().x, dA.x, B.min().x, B.max().x, dA.x);
+	SweptCollisionData1D Y = sweptDetection1D(A.min().y, A.max().y, dA.y, B.min().y, B.max().y, dA.y);
+
+	CollisionDataSwept retval;
+	vec2 a;
+	float h;
+
+	if (X.entryTime > Y.entryTime && !isinf(X.entryTime))
+	{
+		a = { 1, 0 };
+		h = X.collisionNormal;
+		retval.entryTime = X.entryTime;
+	}
+	else
+	{
+		a = { 0, 1 };
+		h = Y.collisionNormal;
+		retval.entryTime = Y.entryTime;
+	}
+
+	retval.collisionNormal = h * a;
+
+	if (Y.exitTime < X.exitTime || !isinf(X.exitTime))
+	{
+		retval.exitTime = Y.exitTime;
+	}
+	else
+	{
+		retval.exitTime = X.exitTime;
+	}
+	return retval;
+
+}
+
+CollisionData planeBoxCollision(const Plane & p, const AABB & b)
+{
+	CollisionData retval;
+
+	vec2 BL{ b.min().x, b.min().y },
+		BR{ b.max().x, b.min().y },
+		TL{ b.min().x, b.max().y },
+		TR{ b.max().x, b.max().y };
+
+	float Pmax = dot(p.pos, p.dir);
+
+
+	float FBL = dot(p.dir, BL),
+		FBR = dot(p.dir, BR),
+		FTL = dot(p.dir, TL),
+		FTR = dot(p.dir, TR);
+
+	float Amin = fminf(fminf(FBL, FBR), fminf(FTL, FTR));
+	float Amax = fmaxf(fmaxf(FBL, FBR), fmaxf(FTL, FTR));
+
+
+
+	return retval;
+}
+
+CollisionDataSwept planeBoxCollisionSwept(const Plane & p, const AABB & b, const vec2 & bvel)
+{
+	CollisionDataSwept retval;
+
+	vec2 BL{ b.min().x, b.min().y },
+		 BR{ b.max().x, b.min().y },
+	     TL{ b.min().x, b.max().y },
+		 TR{ b.max().x, b.max().y };
+
+	float Pmax = dot(p.pos, p.dir);
+	float Bvel = dot(p.dir, bvel);
+
+	float FBL = dot(p.dir, BL),
+		FBR = dot(p.dir, BR),
+		FTL = dot(p.dir, TL),
+		FTR = dot(p.dir, TR);
+
+	float Amin = fminf(fminf(FBL, FBR), fminf(FTL, FTR));
+	float Amax = fmaxf(fmaxf(FBL, FBR), fmaxf(FTL, FTR));
+
+	retval.entryTime = (Amin - Pmax) / (0 - Bvel);
+	retval.exitTime = (Amax - Pmax) / (0 - Bvel);
+
+	return retval;
+}
+
 
 bool CollisionData::result() const
 {
@@ -87,4 +175,9 @@ bool CollisionData::result() const
 vec2 CollisionData::MTV() const
 {
 	return penetrationDepth * collisionNormal;
+}
+
+bool CollisionDataSwept::result() const
+{
+	return entryTime >= 0 && entryTime <= 1;
 }
