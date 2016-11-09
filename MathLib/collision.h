@@ -49,3 +49,7 @@ CollisionDataSwept boxCollisionSwept(const AABB &A, const vec2 &dA,
 CollisionData planeBoxCollision(const Plane &P, const AABB & B);
 
 CollisionDataSwept planeBoxCollisionSwept (const Plane &p, const AABB &b, const vec2 &bvel);
+
+CollisionData HullCollision(const Hull &A, const Hull &B);
+
+CollisionData HullCollisionGroups(const Hull  A[], unsigned asize, const Hull B[], unsigned bsize);

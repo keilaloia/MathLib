@@ -137,9 +137,30 @@ int main()
 	AABB As = { 0,0, 1,1 };
 	AABB Bs = { 0,10, 1,1 };
 
-	//assert(fequal(boxCollisionSwept(As, vec2{ 0,1 }, Bs, vec2{ 0, -1 }).entryTime, 4));
-	//assert
-	//answer 2, -8
+
+
+
+	vec2 verts[] = { {0,1},{1,1},{1,0},{0,0} };
+	vec2 verts2[] = { { -1,-1 },{ -1,1 },{ 0,0 } };
+
+	Hull myHull(verts, 4);
+	Hull otherHull(verts2, 3);
+
+	assert((myHull.normals[0] == vec2{ 0,1 }));
+	assert((myHull.normals[1] == vec2{ 1,0 }));
+	assert((myHull.normals[2] == vec2{ 0,-1 }));
+	assert((myHull.normals[3] == vec2{ -1,0 }));
+
+	Hull tHull = translate(1, 0) * myHull;
+	assert((tHull.vertices[0] == vec2{ 1,1 }));
+	assert((tHull.vertices[1] == vec2{ 2,1 }));
+	assert((tHull.vertices[2] == vec2{ 2,0 }));
+	assert((tHull.vertices[3] == vec2{ 1,0 }));
+
+	//collision
+	assert(fequal(HullCollision(myHull, otherHull).penetrationDepth, 0));
+	assert(fequal(HullCollision(otherHull, tHull).penetrationDepth, -1));
+
 	getchar();
 	return 0;
 }

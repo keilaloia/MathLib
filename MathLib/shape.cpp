@@ -98,3 +98,48 @@ bool operator==(const Plane &A, const Plane &B)
 	return A.pos == B.pos && A.dir == B.dir;
 
 }
+
+Hull::Hull(const vec2 *a_vertices, unsigned a_size)
+{
+	size = a_size;
+
+	for (int i = 0; i < a_size; i++)
+	{
+		vec2 A;
+		// if it's the last vertex?
+		if (i + 1 == a_size)
+		{
+			A = a_vertices[i] - a_vertices[0];
+		}
+		else
+		{
+			A = a_vertices[i] - a_vertices[i + 1];
+		}
+
+		vec2 absolute = normal(A);
+		vec2 middle = perp(absolute);
+
+		vertices[i] = a_vertices[i];
+		normals[i] = middle;
+
+
+	}
+}
+
+Hull::Hull()
+{
+	size = 0;
+}
+
+Hull operator*(const mat3 &T, const Hull &H)
+{
+	Hull retval;
+
+	retval.size = H.size;
+	for (int i = 0; i < H.size; ++i)
+	{
+		retval.vertices[i] = (T * vec3{ H.vertices[i].x, H.vertices[i].y, 1 }).xy;
+		retval.normals[i] = (T * vec3{ H.vertices[i].x, H.vertices[i].y, 0 }).xy;
+	}
+	return retval;
+}

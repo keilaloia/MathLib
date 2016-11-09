@@ -133,9 +133,9 @@ CollisionData planeBoxCollision(const Plane & p, const AABB & b)
 
 	float Amin = fminf(fminf(FBL, FBR), fminf(FTL, FTR));
 	float Amax = fmaxf(fmaxf(FBL, FBR), fmaxf(FTL, FTR));
-
-
-
+	
+	retval.penetrationDepth = Pmax - Amin;
+	retval.collisionNormal = p.dir;
 	return retval;
 }
 
@@ -165,6 +165,76 @@ CollisionDataSwept planeBoxCollisionSwept(const Plane & p, const AABB & b, const
 	return retval;
 }
 
+CollisionData HullCollision(const Hull & A, const Hull & B)
+{
+	int size = 0;
+	vec2 axes[32];
+	//for every surface normal
+	//combining all axes into a single array
+	for (int j = 0; j < A.size; ++j)
+	{
+		axes[size++] = A.normals[j];
+	}
+	for (int j = 0; j < B.size; ++j)
+	{
+		axes[size++] = B.normals[j];
+	}
+
+	CollisionData retval;
+	retval.penetrationDepth = INFINITY;
+	//for every axis we need to project points onto the axis
+	for (int j = 0; j < size; ++j)
+	{
+		vec2 &axis = axes[j];
+		float amin = INFINITY, amax = -INFINITY;
+		float bmin = INFINITY, bmax = -INFINITY;
+
+		for (int i = 0; i < A.size; ++i)
+		{
+			float proj = dot(axis, A.vertices[i]);//scalar projection
+			amin = fminf(proj, amin);
+			amax = fmaxf(proj, amax);
+		}
+		for (int i = 0; i < B.size; ++i)
+		{
+			float proj = dot(axis, B.vertices[i]);//scalar projection
+			bmin = fminf(proj, bmin);
+			bmax = fmaxf(proj, bmax);
+		}
+
+		float pDr, pDl, pD, H;
+		pDr = amax - bmin;
+		pDl = bmax - amin;
+
+		// axial solution
+		pD = fminf(pDr, pDl);
+		H = copysignf(1, pDl - pDr);
+
+		if (pD < retval.penetrationDepth)
+		{
+			retval.penetrationDepth = pD;
+			retval.collisionNormal = axis * H;
+		}
+	}
+
+	return retval;
+}
+CollisionData HullCollisionGroups(const Hull  A[], unsigned asize, const Hull B[], unsigned bsize)
+{
+	CollisionData retval;
+	retval.penetrationDepth = INFINITY;
+	for (int i = 0; i < asize; ++i)
+		for (int j = 0; j < bsize; ++j)
+		{
+			CollisionData temp = HullCollision(A[i], B[j]);
+
+			if (temp.penetrationDepth < retval.penetrationDepth)
+				retval = temp;
+		}
+
+	return retval;
+
+}
 
 bool CollisionData::result() const
 {
