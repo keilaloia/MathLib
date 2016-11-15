@@ -6,7 +6,7 @@ class SpaceshipController
 public:
 	unsigned keyup, keydown, keyLeft, keyright, keystop;
 
-	SpaceshipController(int keyup, int Keydown, int Keyleft, int Keyright, int stop);
+	SpaceshipController(int keyup='W', int Keydown='S', int Keyleft='A', int Keyright='D', int stop='F');
 
 	
 

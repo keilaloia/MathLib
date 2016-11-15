@@ -9,6 +9,7 @@ public:
 	AABB box;
 	Hull hull;
 
+	collider();
 	collider(const vec2 * verts, int size);
 
 	void DebugDraw(const mat3 &T, const Transform &trans);

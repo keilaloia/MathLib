@@ -124,10 +124,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="collider.cpp" />
+    <ClCompile Include="Gamestate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlanetaryMotor.cpp" />
     <ClCompile Include="PlanetaryRender.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="shapedraw.cpp" />
     <ClCompile Include="SpaceshipControllerh.cpp" />
@@ -136,9 +139,12 @@
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera.h" />
     <ClInclude Include="collider.h" />
+    <ClInclude Include="Gamestate.h" />
     <ClInclude Include="PlanetaryMotor.h" />
     <ClInclude Include="PlanetaryRender.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="shapedraw.h" />
     <ClInclude Include="SpaceshipControllerh.h" />
