@@ -72,3 +72,7 @@ vec2 cardinalSpline(const vec2 start, const  vec2 mid, const vec2 end, float tig
 vec2 catRomSpline(const vec2 start, const  vec2 mid, const  vec2 end, float alpha);
 
 vec2 Velocity(vec2 position, float time);
+
+vec2 project(vec2 I, vec2 N);
+
+vec2 reflect(vec2 I, vec2 N);

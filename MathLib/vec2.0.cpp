@@ -160,6 +160,19 @@ vec2 Velocity(vec2 position, float time)
 	return v;
 }
 
+vec2 project(vec2 I, vec2 N)
+{
+	vec2 retval = dot(I, normal(N)) * normal(N);
+
+	return retval;
+}
+
+vec2 reflect(vec2 I, vec2 N)
+{
+	vec2 retval = I - 2 * project(I, N);
+	return retval;
+}
+
 float vec2::operator[](unsigned idx) const
 {
 	return v[idx];

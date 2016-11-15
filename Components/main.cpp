@@ -8,6 +8,7 @@
 #include "SpaceshipControllerh.h"
 #include "PlanetaryMotor.h"
 #include "spaceshiprender.h"
+#include "collider.h"
 int main()
 {
 	// transform represents m_position
@@ -36,6 +37,7 @@ int main()
 	//Transform ST3(50, 0);
 	//
 	RigidBody playerRigidbody;
+	RigidBody occluderRigidbody;
 	//RigidBody FirstRigidbody;
 	//RigidBody SecondRigidbody;
 	//RigidBody ThirdRigidbody;
@@ -61,6 +63,7 @@ int main()
 	//FirstRigidbody.velocity = vec2{ 0,0 };
 	//SecondRigidbody.velocity = vec2{ 0,0 };
 	//ThirdRigidbody.velocity = vec2{ 0,0 };
+
 
 
 	//SpaceshipController Sunc(' ', ' ', 'Z', 'X', ' ');
@@ -99,30 +102,42 @@ int main()
 	
 	float ang_vec = 0;
 
+	vec2 Hullverts[] = { { 0,7 },{-6, 0 },{ 6,0}, {0,-6} };
+	collider playercollider(Hullverts,4);
+
+	Transform occluderTransform(40, 0);
+	occluderTransform.m_scale = vec2{ 20,20 };
+	collider occluderCollision(Hullverts, 4);
+
 	while (sfw::stepContext())
 	{
 		float deltaTime = sfw::getDeltaTime();
-		
-		cameraTransform.m_position = lerp(cameraTransform.m_position,
-									      playerTransform.getGlobalPosition(),// + SunTransform.getGlobalPosition() / 2, 
-									      1.f);
 
-	
+		cameraTransform.m_position = lerp(cameraTransform.m_position,
+			playerTransform.getGlobalPosition(),// + SunTransform.getGlobalPosition() / 2, 
+			1.f);
+
+
 		mat3 proj = translate(400, 400) * scale(1, 1);
 		mat3 view = inverse(cameraTransform.getGlobalTransform());
 		mat3 camera = proj *view;
 
 		////intergrate helps it accelerate i think or rigid body does idk :(
 		playerRigidbody.intergrate(playerTransform, deltaTime);
+		occluderRigidbody.intergrate(occluderTransform, deltaTime);
 
-		
 		//find the location playerloco= location
 		spacectrl.update(playerLoco);
 		playerLoco.update(playerTransform, playerRigidbody, deltaTime);
 		ship1.drawship(playerTransform, camera);
-		playerTransform.debugDraw(camera);
-
 		
+		StaticCollision(playerTransform, playerRigidbody, playercollider, occluderTransform, occluderCollision, 1);
+		DynamicCollision(playerTransform, playerRigidbody, playercollider, occluderTransform, occluderRigidbody, occluderCollision, 1);
+		playerTransform.debugDraw(camera);
+		playercollider.DebugDraw(camera, playerTransform);
+
+		occluderTransform.debugDraw(camera);
+		occluderCollision.DebugDraw(camera, occluderTransform);
 
 		//FirstRigidbody.intergrate(ST1, deltaTime);
 		//ST1.debugDraw();

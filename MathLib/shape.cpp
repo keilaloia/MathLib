@@ -38,9 +38,6 @@ AABB operator*(const mat3 &T, const AABB &B)
 	AABB boxxy;
 
 
-	//float xhe = magnitude(T * vec3{ boxxy.half.x , 0, 0 });
-	//float yhe = magnitude(T * vec3{ 0,boxxy.half.y,0 });
-
 	boxxy.half = B.half;
 
 	vec2 testMin = B.min();
@@ -139,7 +136,7 @@ Hull operator*(const mat3 &T, const Hull &H)
 	for (int i = 0; i < H.size; ++i)
 	{
 		retval.vertices[i] = (T * vec3{ H.vertices[i].x, H.vertices[i].y, 1 }).xy;
-		retval.normals[i] = (T * vec3{ H.vertices[i].x, H.vertices[i].y, 0 }).xy;
+		retval.normals[i] = normal(T * vec3{ H.vertices[i].x, H.vertices[i].y, 0 }).xy;
 	}
 	return retval;
 }

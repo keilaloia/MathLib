@@ -161,6 +161,14 @@ int main()
 	assert(fequal(HullCollision(myHull, otherHull).penetrationDepth, 0));
 	assert(fequal(HullCollision(otherHull, tHull).penetrationDepth, -1));
 
+	vec2 I = vec2{ -1,-1 };
+	vec2 ref = vec2{ 1,-1 };
+	vec2 xaxis = vec2{ 1,0 };
+
+	assert(project(I,xaxis) == -xaxis);
+
+	assert(reflect(I, xaxis) == ref);
+
 	getchar();
 	return 0;
 }

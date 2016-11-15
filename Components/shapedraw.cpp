@@ -11,18 +11,14 @@ void drawCircle(const Circle & C,unsigned color)
 
 void drawAABB(const AABB &E, unsigned color)
 {
-	/*mat3 box = boxTransform.getGlobalTransform();
-	vec3 A = box * vec3{ E.min().x, E.max().y, 1 };
-	vec3 B = box * vec3{ E.max().x, E.min().y, 1 };
-	vec3 C = box * vec3{ E.min().x, E.min().y, 1 };
-	vec3 D = box * vec3{ E.max().x, E.max().y, 1 };*/
+	
 
 	sfw::drawLine(E.min().x, E.min().y, E.max().x, E.min().y, color);
 	sfw::drawLine(E.min().x, E.min().y, E.min().x, E.max().y, color);
 	sfw::drawLine(E.min().x, E.max().y, E.max().x, E.max().y, color);
 	sfw::drawLine(E.max().x, E.min().y, E.max().x, E.max().y, color);
 
-	//sfw::drawLine(A.x * )
+
 }
 
 void drawPlane(const Plane & p, unsigned color)
@@ -37,4 +33,14 @@ void drawPlane(const Plane & p, unsigned color)
 	sfw::drawLine(p.pos.x, p.pos.y, (p.pos.x - p.dir.x * 50), (p.pos.y - p.dir.y * 50), color);
 
 	//sfw::drawLine(p.dir.x, p.dir.y, (p.dir.x - p.pos.x)  , (p.dir.y - p.pos.y) , color);
+}
+
+void drawHull(const Hull & H, unsigned color)
+{
+	for (int i = 0; i < H.size && i < 16; ++i)
+	{
+		sfw::drawLine(H.vertices[i].x, H.vertices[i].y,
+					  H.vertices[(i + 1) % H.size].x,
+				      H.vertices[(i + 1) % H.size].y, color);
+	}
 }

@@ -203,7 +203,7 @@ mat3 scale(float W, float H)
 }
 mat3 rotation(float a)
 {
-	return mat3{ {cos(a), sin(a), 0, -sin(a), cos(a), 0, 0,0,1} };
+	return mat3{ {cos(a), sin(a), 0, -sin(a), cos(a), 0,0,0,1} };
 }
 mat3 translate(float X, float Y)
 {
