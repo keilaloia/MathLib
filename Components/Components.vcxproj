@@ -124,10 +124,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="Gamestate.cpp" />
+    <ClCompile Include="Gravbullet.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="objectCollision.cpp" />
+    <ClCompile Include="Parent.cpp" />
     <ClCompile Include="PlanetaryMotor.cpp" />
     <ClCompile Include="PlanetaryRender.cpp" />
     <ClCompile Include="player.cpp" />
@@ -139,9 +143,13 @@
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Asteroid.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="Gamestate.h" />
+    <ClInclude Include="Gravbullet.h" />
+    <ClInclude Include="objectCollision.h" />
+    <ClInclude Include="Parent.h" />
     <ClInclude Include="PlanetaryMotor.h" />
     <ClInclude Include="PlanetaryRender.h" />
     <ClInclude Include="player.h" />

@@ -21,6 +21,12 @@ Transform::Transform(float x, float y)// : Transform()
 
 
 
+vec2 Transform::getup() const
+{
+	return -perp(getDirection());
+
+}
+
 vec2 Transform::getDirection() const
 {
 	return fromAngle(m_facing);
@@ -87,10 +93,10 @@ void Transform::debugDraw(const mat3 &T) const
 	//mat3 view   = translate(cameraPosition.x, cameraPosition.y);
 	//mat3 camera = view;
 	
-	sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
+	//sfw::drawLine(pos.x, pos.y, up.x, up.y, GREEN);
 	//sfw::drawLine(p_pos.x, p_pos.y, pos.x, pos.y, CYAN);
 
-	drawCircle(L*Circle{ 0,0, 10 }, RED);
+	//drawCircle(L*Circle{ 0,0, 10 }, RED);
 	//drawAABB(L * AABB{ 0, 0, 10, 10 }, CYAN);
 
 }

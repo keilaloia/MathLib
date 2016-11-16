@@ -10,7 +10,7 @@ public:
 	Transform * m_parent;
 	Transform(float x, float y);
 	Transform();
-	vec2 m_position/*{ 200,200 }*/;
+	vec2 m_position;
 	vec2 m_scale;
 	float m_facing;
 	vec2 playerVelocity = { 0, 0 };
