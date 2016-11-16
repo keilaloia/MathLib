@@ -29,7 +29,7 @@ void Playership::update(float deltaTime, Gamestate & gs)
 		//reset velocity
 		gs.bullet.rigidbody.velocity = vec2{ 0,0 };
 		// get it moving
-		gs.bullet.rigidbody.addImpulse(transform.getup() * 3000.f);
+		gs.bullet.rigidbody.addImpulse(transform.getDirection() * 3000.f);
 	}
 
 }
