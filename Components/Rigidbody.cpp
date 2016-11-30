@@ -35,8 +35,8 @@ void RigidBody::debugDraw(const mat3& T, const Transform & trans)
 	vec2 p = (T * trans.getGlobalTransform())[2].xy;
 	vec2 v = p + velocity;
 	vec2 a = acceleration + v;
-	sfw::drawLine(p.x, p.y, v.x, v.y, CYAN);
-	sfw::drawLine(p.x, p.y, a.x, a.y, MAGENTA);
+	//sfw::drawLine(p.x, p.y, v.x, v.y, CYAN);
+	//sfw::drawLine(p.x, p.y, a.x, a.y, MAGENTA);
 }
 
 void RigidBody::intergrate(Transform &trans, float deltaTime)

@@ -14,6 +14,8 @@ public:
 	SpaceshipController controller;
 	SpaceshipLocomotion locomotion;
 
+	float firingTimer;
+
 	Playership();
 
 	void update(float deltaTime, class Gamestate &gs);

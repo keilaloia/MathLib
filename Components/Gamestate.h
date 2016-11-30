@@ -6,11 +6,13 @@
 #include "Gravbullet.h"
 #include "objectCollision.h"
 #include "Rigidbody.h"
+#include "Invisbar.h"
+#include "pbullet.h"
 
 
 class Gamestate
 {
-	unsigned boss = 20;
+	const unsigned BOSS_COUNT = 20;
 
 public:
 
@@ -19,8 +21,15 @@ public:
 	Asteroid asteroid[2];
 	Parent parent[20];
 	RigidBody rigidbody;
-	GravBullet bullet;
+	GravBullet bullet[100];
+	Invisbar invisbar[2];
+	Pbullet playerBullet[100];
 
+	void spawnBullet(const Transform &t, float impulse, bool playerOwned = false);
+	void playerspawnBullet(const Transform &t, float impulse);
+
+
+	void resetParent();
 
 
 	void init();

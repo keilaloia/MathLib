@@ -1,6 +1,7 @@
-#include "Gravbullet.h"
+#pragma once
+#include "pbullet.h"
 
-GravBullet::GravBullet()
+Pbullet::Pbullet()
 {
 	timer = 0;
 
@@ -8,11 +9,9 @@ GravBullet::GravBullet()
 	Collider = collider(hullVrts, 3);
 	transform.m_scale = vec2{ 40,40 };
 	rigidbody.mass = 10;
-
-	fromPlayer = false;
 }
 
-void GravBullet::update(float deltaTime, Gamestate & gs)
+void Pbullet::update(float deltaTime, Gamestate & gs)
 {
 	// The timer always counts down- if it dies, then we 
 	// don't update or draw. If we don't do these things,
@@ -28,7 +27,7 @@ void GravBullet::update(float deltaTime, Gamestate & gs)
 	rigidbody.intergrate(transform, deltaTime);
 }
 
-void GravBullet::draw(const mat3 & camera)
+void Pbullet::draw(const mat3 & camera)
 {
 	if (!isAlive) return;
 

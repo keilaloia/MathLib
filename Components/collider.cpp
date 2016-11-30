@@ -48,19 +48,37 @@ void collider::DebugDraw(const mat3 & T, const Transform & trans)
 	drawHull(T * trans.getGlobalTransform() * hull, 0x888888ff);
 }
 
-CollisionData ColliderCollision(const Transform & AT, const Transform & BT, const collider & AC, const collider & BC)
+CollisionData ColliderCollision(const Transform & AT, const Transform & BT, const collider & AC, const collider & BC, bool boxOnly)
 {
 	CollisionData retval;
 	retval = boxCollision(AT.getGlobalTransform() * AC.box,
-						  BT.getGlobalTransform() * AC.box);
+						  BT.getGlobalTransform() * BC.box);
 
 
 
-	if (retval.penetrationDepth >= 0)
+	if (retval.penetrationDepth >= 0 && !boxOnly)
 		retval = HullCollision (AT.getGlobalTransform() * AC.hull,
-								BT.getGlobalTransform() * AC.hull);
+								BT.getGlobalTransform() * BC.hull);
 
 	return retval;
+}
+
+
+
+
+CollisionData StaticCollisionBox(Transform & AT, RigidBody & AR, const collider & AC, const Transform & BT, const collider & BC, float bounciness)
+{
+
+	CollisionData results = ColliderCollision(AT, BT, AC, BC, true);
+	if (results.penetrationDepth >= 0)
+	{
+		vec2 MTV = results.penetrationDepth * results.collisionNormal;
+		AT.m_position -= MTV;
+
+		AR.velocity = reflect(AR.velocity, results.collisionNormal) ;
+	
+	}
+	return results;
 }
 
 CollisionData StaticCollision(Transform & AT, RigidBody & AR, const collider & AC, const Transform & BT, const collider & BC, float bounciness)

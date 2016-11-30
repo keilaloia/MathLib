@@ -19,23 +19,14 @@ int main()
 	 sfw::initContext(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	 Gamestate game;
-
 	 game.init();
 
 	 while (sfw::stepContext())
 	 {
 		 float dt = sfw::getDeltaTime();
-
 		 game.update(dt);
-
 		 game.draw();
-
-
-
-
-
-}
-
+	}
 
 	sfw::termContext();
 }

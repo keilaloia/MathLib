@@ -129,9 +129,12 @@
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="Gamestate.cpp" />
     <ClCompile Include="Gravbullet.cpp" />
+    <ClCompile Include="health.cpp" />
+    <ClCompile Include="Invisbar.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objectCollision.cpp" />
     <ClCompile Include="Parent.cpp" />
+    <ClCompile Include="pbullet.cpp" />
     <ClCompile Include="PlanetaryMotor.cpp" />
     <ClCompile Include="PlanetaryRender.cpp" />
     <ClCompile Include="player.cpp" />
@@ -148,8 +151,11 @@
     <ClInclude Include="collider.h" />
     <ClInclude Include="Gamestate.h" />
     <ClInclude Include="Gravbullet.h" />
+    <ClInclude Include="health.h" />
+    <ClInclude Include="Invisbar.h" />
     <ClInclude Include="objectCollision.h" />
     <ClInclude Include="Parent.h" />
+    <ClInclude Include="pbullet.h" />
     <ClInclude Include="PlanetaryMotor.h" />
     <ClInclude Include="PlanetaryRender.h" />
     <ClInclude Include="player.h" />

@@ -7,6 +7,7 @@ Playership::Playership()
 	vec2 Hullverts[] = { { 0,-7 },{ 10, 0 },{ 0,6 } };
 	Collider = collider(Hullverts,3);
 
+	firingTimer = 0;
 	transform.m_scale = vec2{ 10,10 };
 	
 }
@@ -17,19 +18,13 @@ void Playership::update(float deltaTime, Gamestate & gs)
 	locomotion.update(transform, Rigidbody, deltaTime);
 	Rigidbody.intergrate(transform, deltaTime);
 
-	if (sfw::getKey('F') && !gs.bullet.isAlive)
+
+	firingTimer -= deltaTime;
+
+	if (sfw::getKey('F') && firingTimer < 0)
 	{
-		// bring it to life
-		gs.bullet.timer = 2.f;
-
-		// set up it's position and stuff
-		gs.bullet.transform.m_position = transform.m_position;
-		gs.bullet.transform.m_facing = transform.m_facing;
-
-		//reset velocity
-		gs.bullet.rigidbody.velocity = vec2{ 0,0 };
-		// get it moving
-		gs.bullet.rigidbody.addImpulse(transform.getDirection() * 3000.f);
+		gs.playerspawnBullet(transform, 100);
+		firingTimer = 0.25f;
 	}
 
 }
@@ -40,3 +35,6 @@ void Playership::draw(const mat3 & camera)
 	Collider.DebugDraw(camera, transform);
 	Rigidbody.debugDraw(camera, transform);
 }
+
+
+//for loops in cpp, collision, player cpp, gamestate

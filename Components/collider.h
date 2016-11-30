@@ -18,7 +18,8 @@ public:
 CollisionData ColliderCollision(const Transform &AT,
 								const Transform &BT,
 								const collider &AC,
-								const collider &BC);
+								const collider &BC,
+								bool boxOnly = false);
 
 
 CollisionData StaticCollision(Transform &AT, RigidBody &AR, const collider &AC,
@@ -29,3 +30,6 @@ CollisionData StaticCollision(Transform &AT, RigidBody &AR, const collider &AC,
 CollisionData DynamicCollision(Transform &AT, RigidBody &AR,  const collider &AC,
 							   Transform &BT, RigidBody & BR, const collider &BC,
 							   float bounciness);
+
+
+CollisionData StaticCollisionBox(Transform & AT, RigidBody & AR, const collider & AC, const Transform & BT, const collider & BC, float bounciness);

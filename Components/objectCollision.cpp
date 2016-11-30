@@ -22,6 +22,11 @@ void AsteroidCollision(Asteroid & as1, Asteroid & as2)
 
 void PlayerChildCollision(Playership & player, Parent & parent)
 {
+	if (parent.health.isAlive == false)
+	{
+		return;
+	}
+
 	CollisionData result =
 	DynamicCollision(player.transform, player.Rigidbody, player.Collider,
 		parent.transform, parent.rigidbody, parent.Collider, .65);
@@ -36,11 +41,11 @@ void bigmamaCollision(Playership & player, Parent & parent)
 
 void BulletBossCollision(GravBullet & bullet, Parent & parent)
 {
-	if (!bullet.isAlive) return;
+	if (!bullet.isAlive ) return;
 
 	CollisionData result =
-		DynamicCollision(bullet.transform, bullet.rigidbody, bullet.Collider,
-			parent.transform, parent.rigidbody, parent.Collider, .2);
+		StaticCollision(bullet.transform, bullet.rigidbody, bullet.Collider,
+			parent.transform, parent.Collider, .2);
 
 	if (result.penetrationDepth >= 0)
 	{
@@ -49,5 +54,53 @@ void BulletBossCollision(GravBullet & bullet, Parent & parent)
 		bullet.timer = 0;
 	}
 
+
 }
+
+void BulletChildCollision(GravBullet &bullet1, Parent &parent)
+{
+	if (parent.health.isAlive == false)
+	{
+		return;
+	}
+
+	CollisionData result =
+		StaticCollision(bullet1.transform, bullet1.rigidbody, bullet1.Collider,
+			parent.transform, parent.Collider, .65);
+
+	if (result.penetrationDepth >= 0 && parent.health.health)
+	{
+		parent.health.health -= 10;
+		
+	}
+
+}
+
+void barCollision(Invisbar & invis, Parent & parent)
+{
+		
+	CollisionData result =
+		StaticCollisionBox(parent.transform, parent.rigidbody, parent.Collider,
+		invis.transform, invis.Collider, 0);		
+}
+
+void playerbossbullet(Parent & parent, Pbullet & pbullet)
+{
+
+	if (parent.health.isAlive == false)
+	{
+		return;
+	}
+
+	CollisionData result =
+		StaticCollision(pbullet.transform, pbullet.rigidbody, pbullet.Collider,
+			parent.transform, parent.Collider, .65);
+
+	if (result.penetrationDepth >= 0 && parent.health.health)
+	{
+		parent.health.health -= 10;
+
+	}
+}
+
 

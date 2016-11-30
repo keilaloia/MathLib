@@ -13,7 +13,7 @@ It would be /best/ to manage bullets in an array so we could
 support potentially hundreds of them, but this example doesn't
 provide support for that just yet.
 */
-class GravBullet
+class Pbullet
 {
 public:
 
@@ -25,7 +25,7 @@ public:
 	float timer;
 	bool isAlive;
 
-	GravBullet();
+	Pbullet();
 
 	bool fromPlayer;
 
