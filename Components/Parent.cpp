@@ -9,9 +9,9 @@ Parent::Parent()
 	transform.m_scale = vec2{ 4,4 };
 
 	rigidbody.drag = 0;
-	maxspeed = 30.0;
-	turnspeed = 5.0;
-	startspeed = 0.2;
+	maxspeed = 1.0f;
+	turnspeed = .5f;
+	startspeed = 0.2f;
 	forcepower = { 100,0 };
 
 	firingTimer = 0;

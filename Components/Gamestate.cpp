@@ -11,7 +11,7 @@ void Gamestate::spawnBullet(const Transform & t, float impulse, bool playerOwned
 	if(i < 100)
 	{
 		bullet[i].isAlive = true;
-		bullet[i].timer = 5;
+		bullet[i].timer = 8;
 		bullet[i].rigidbody.velocity = impulse * t.getDirection();
 		bullet[i].transform.m_position = t.getGlobalPosition();
 		bullet[i].transform.m_facing = t.m_facing;
@@ -121,16 +121,17 @@ void Gamestate::update(float deltaTime)
 	player.update(deltaTime, *this);
 	camera.update(deltaTime, *this);
 	
-	
+	//updates boss bullet
 	for (int i = 0; i < 100; ++i)
 		bullet[i].update(deltaTime, *this);
 
+	//updates playerbullets
 	for (int i = 0; i < 100; ++i)
 		playerBullet[i].update(deltaTime, *this);
 
 	
 
-
+	//updates all parents/children
 	for (int i = 0; i < BOSS_COUNT; ++i)
 	{
 		parent[i].update(deltaTime, *this);
@@ -138,20 +139,21 @@ void Gamestate::update(float deltaTime)
 
 
 
-
+	//allows player to ram children
 	for (int i = 1; i < BOSS_COUNT; ++i)
 	{
 		PlayerChildCollision(player, parent[i]);
 
 	}
 
+	//keeps player from running bigmamma off the map
 	for (int j = 0; j < 1; ++j) 
 	{
 		bigmamaCollision(player, parent[j]); 
 	}
 
 
-
+	//keeps bosses bullets from killing himself
 	for (int i = 0; i < 100; ++i)
 		for (int j = 0; j < 1; ++j)
 			if(bullet[i].fromPlayer)
@@ -159,23 +161,40 @@ void Gamestate::update(float deltaTime)
 			BulletBossCollision(bullet[i], parent[j]);
 			}
 
-	for (int i = 0; i < 100; ++i)
-		for (int j = 1; j < BOSS_COUNT; ++j)
-			if (bullet[i].fromPlayer)
-			{
-				BulletChildCollision(bullet[i], parent[j]);
-			}
+	////junk code useful in old bullet system
+	//for (int i = 0; i < 100; ++i)
+	//	for (int j = 1; j < BOSS_COUNT; ++j)
+	//		if (bullet[i].fromPlayer)
+	//		{
+	//			BulletChildCollision(bullet[i], parent[j]);
+	//		}
 
+	// invisible wall allows boss to move back and forth
 	for (int i = 0; i < 2; ++i)
 	{
 		barCollision(invisbar[i], parent[0]);	
 	}
 
+	//player does damage to boss
 	for (int i = 0; i < 100; ++i)
 		for (int j = 1; j < BOSS_COUNT; ++j)
 			{
 				playerbossbullet(parent[j], playerBullet[i]);
 			}
+
+	//bulelts attack player
+	for (int i = 0; i < 100; ++i)
+		{
+			bossbulletplayer(bullet[i], player);
+		}
+
+	//bullet on bullet collision
+	for (int i = 0; i < 100; ++i)
+		for (int j = 0; j < 100; ++j)
+		{
+			gbulletbulletCollision(bullet[i], playerBullet[j]);
+		}
+
 }
 
 void Gamestate::draw()
@@ -191,8 +210,8 @@ void Gamestate::draw()
 		playerBullet[i].draw(cam);
 
 
-	invisbar[0].draw(cam);
-	invisbar[1].draw(cam);
+	//invisbar[0].draw(cam);
+	//invisbar[1].draw(cam);
 
 
 	for (int i = 0; i < BOSS_COUNT; ++i)
