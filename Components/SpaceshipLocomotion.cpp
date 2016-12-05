@@ -6,7 +6,7 @@
 
 SpaceshipLocomotion::SpaceshipLocomotion()
 {
-	vertThrust = 0.0f;
+	//vertThrust = 0.0f;
 	//maxThrust = 100.0f;
 	//thrustSpeed = 1.0f;
 
@@ -16,24 +16,16 @@ SpaceshipLocomotion::SpaceshipLocomotion()
 
 	breakpower = 10.0f;
 	//breakpower = 0;
-	turnSpeed = 1.0f;
-	speed = 300.0f;
-	maxSpeed = 1000.0f;
+	//turnSpeed = 1.0f;
+	speed = 50.0f;
+	maxSpeed = 50.0f;
 	stopAction = 0;
 }
 
 //
 void SpaceshipLocomotion::doThrust(float value)
 {
-	vertThrust += value;
-
-
-}
-
-void SpaceshipLocomotion::doTurn(float value)
-{
 	horzThrust += value;
-
 }
 
 void SpaceshipLocomotion::doStop(float value)
@@ -43,14 +35,12 @@ void SpaceshipLocomotion::doStop(float value)
 
 void SpaceshipLocomotion::update(const Transform &trans, RigidBody &rigidbody, float deltaTime)
 {
-	
-	rigidbody.addTorque(turnSpeed * horzThrust);
-	rigidbody.addForce(trans.getDirection() * speed * vertThrust);
+	// thrusting
+	rigidbody.addForce(trans.getGlobalUp() * speed * horzThrust);
 
-	
-
+	// stopping
 	float currentSpeed = magnitude(rigidbody.velocity);
 	rigidbody.addForce(-rigidbody.velocity * breakpower * stopAction);
 	
-	horzThrust = vertThrust = stopAction = 0;
+	horzThrust = stopAction = 0;
 }

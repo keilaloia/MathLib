@@ -26,6 +26,11 @@ int main()
 		 float dt = sfw::getDeltaTime();
 		 game.update(dt);
 		 game.draw();
+
+
+
+		
+
 	}
 
 	sfw::termContext();

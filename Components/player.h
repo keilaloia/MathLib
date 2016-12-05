@@ -4,6 +4,7 @@
 #include "Rigidbody.h"
 #include "SpaceshipControllerh.h"
 #include "spaceshiplocomotion.h"
+#include "health.h"
 
 class Playership
 {
@@ -13,6 +14,7 @@ public:
 	RigidBody Rigidbody;
 	SpaceshipController controller;
 	SpaceshipLocomotion locomotion;
+	Health health;
 
 	float firingTimer;
 

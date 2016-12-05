@@ -1,25 +1,24 @@
 #include "Gamestate.h"
 #include <cmath>
 
+char buffer[64] = { 0 };
+
 void Gamestate::spawnBullet(const Transform & t, float impulse, bool playerOwned)
 {
-	int i = 0;
-	for (i = 0; i < 100; ++i)
-		if (!bullet[i].isAlive)
-			break;
-
-	if(i < 100)
+	for (int i = 0; i < 100; ++i)
 	{
+		// skip over bullets that are currently in play
+		if (bullet[i].isAlive)
+			continue;
+
 		bullet[i].isAlive = true;
-		bullet[i].timer = 5;
-		bullet[i].rigidbody.velocity = impulse * t.getDirection();
+		bullet[i].timer = 10;
+		bullet[i].rigidbody.velocity = impulse * normal(player.transform.getGlobalPosition() - t.getGlobalPosition());
 		bullet[i].transform.m_position = t.getGlobalPosition();
-		bullet[i].transform.m_facing = t.m_facing;
 		bullet[i].fromPlayer = playerOwned;
+
+		break;
 	}
-
-
-
 }
 
 void Gamestate::playerspawnBullet(const Transform & t, float impulse)
@@ -54,7 +53,11 @@ void Gamestate::init()
 
 	//player
 	player.transform.m_position = vec2{ 200, 200 };
-	player.transform.m_facing = 0;
+	player.transform.m_facing = 1.57;
+	player.health.health = 500;
+	player.health.maxHealth = 500;
+	player.health.visualWidth = 35;
+	
 
 	invisbar[0].transform.m_position = vec2{ -500, 950 };
 	invisbar[1].transform.m_position = vec2{ 900, 950 };
@@ -79,7 +82,9 @@ void Gamestate::resetParent()
 	for (int m = 0; m < 1; m++)
 	{
 		parent[0].rigidbody.addImpulse(parent[0].forcepower);
-		parent[m].health.health = 100;
+		parent[m].health.health = 180;
+		parent[m].health.maxHealth = 180;
+		parent[0].health.visualWidth = 15;
 		parent[m].health.isAlive = true;
 		parent[0].transform.m_position = vec2{ 200, 950 };
 		
@@ -90,6 +95,7 @@ void Gamestate::resetParent()
 	{
 		parent[i].health.health = 100;
 		parent[i].health.isAlive = true;
+		parent[i].health.maxHealth = 100;
 		parent[i].transform.m_position = vec2{ (-13.f * i), (-10.f * i) };
 		spawnBullet(parent[i].transform, 100);
 
@@ -101,6 +107,7 @@ void Gamestate::resetParent()
 	{
 		parent[j].health.health = 100;
 		parent[j].health.isAlive = true;
+		parent[j].health.maxHealth = 100;
 		parent[j].transform.m_position = vec2{ ((j-10) * 13.f ), ((j-10) * -10.f ) };
 		spawnBullet(parent[j].transform, 100);
 
@@ -176,6 +183,39 @@ void Gamestate::update(float deltaTime)
 			{
 				playerbossbullet(parent[j], playerBullet[i]);
 			}
+
+	
+	//bullets attack player
+	for (int i = 0; i < 100; ++i)
+	{
+		bossbulletplayer(bullet[i], player);
+	}
+
+	//bullet on bullet collision
+	for (int i = 0; i < 100; ++i)
+		for (int j = 0; j < 100; ++j)
+		{
+			gbulletbulletCollision(bullet[i], playerBullet[j]);
+		}
+
+
+
+
+
+	if (player.transform.m_position.x < -800) player.transform.m_position.x = 1000;
+	else if (player.transform.m_position.x > 1000) player.transform.m_position.x = -800;
+	
+	if (player.health.health <= 0)
+	{
+		sprintf_s(buffer, "Game over");
+		sfw::drawString(d, buffer, 325, 575, 17, 17);
+	}
+
+	if (parent[0].health.health <= 0)
+	{
+		sprintf_s(buffer, "You win");
+		sfw::drawString(d, buffer, 325, 575, 17, 17);
+	}
 }
 
 void Gamestate::draw()
@@ -191,8 +231,8 @@ void Gamestate::draw()
 		playerBullet[i].draw(cam);
 
 
-	invisbar[0].draw(cam);
-	invisbar[1].draw(cam);
+	//invisbar[0].draw(cam);
+	//invisbar[1].draw(cam);
 
 
 	for (int i = 0; i < BOSS_COUNT; ++i)

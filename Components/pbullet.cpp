@@ -5,10 +5,10 @@ Pbullet::Pbullet()
 {
 	timer = 0;
 
-	vec2 hullVrts[] = { { -.1f, 0 },{ 0,.2f },{ .1f,0 } };
+	vec2 hullVrts[] = { { -.1f, 0 },{ 0,.2f },{ .1f,0 }};
 	Collider = collider(hullVrts, 3);
 	transform.m_scale = vec2{ 40,40 };
-	rigidbody.mass = 10;
+	rigidbody.mass = 20;
 }
 
 void Pbullet::update(float deltaTime, Gamestate & gs)

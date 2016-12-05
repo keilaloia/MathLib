@@ -8,6 +8,7 @@
 #include "Rigidbody.h"
 #include "Invisbar.h"
 #include "pbullet.h"
+#include <iostream>
 
 
 class Gamestate
@@ -27,6 +28,9 @@ public:
 
 	void spawnBullet(const Transform &t, float impulse, bool playerOwned = false);
 	void playerspawnBullet(const Transform &t, float impulse);
+
+
+	unsigned d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
 
 
 	void resetParent();

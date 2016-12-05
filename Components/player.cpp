@@ -34,6 +34,8 @@ void Playership::draw(const mat3 & camera)
 	transform.debugDraw(camera);
 	Collider.DebugDraw(camera, transform);
 	Rigidbody.debugDraw(camera, transform);
+	health.debugDraw(camera, transform);
+
 }
 
 

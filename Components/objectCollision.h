@@ -24,3 +24,9 @@ void barCollision(Invisbar &invis, Parent &parent);
 
 void playerbossbullet(Parent &parent, Pbullet &pbullet);
 
+void gbulletbulletCollision(GravBullet & gbullet, Pbullet & pbullet);
+
+void bossbulletplayer(GravBullet & gbullet, Playership & player);
+
+
+

@@ -7,8 +7,12 @@
 class Health
 {
 public:
-	int health;
+	float health;
+	float maxHealth;
 	bool isAlive;
+	float visualWidth;
+
+	Health();
 
 	void debugDraw(const mat3& T, const Transform & trans);
 };

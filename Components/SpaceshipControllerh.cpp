@@ -1,9 +1,14 @@
 #include "SpaceshipControllerh.h"
 
-SpaceshipController::SpaceshipController(int up, int down, int left, int right, int stop)
+SpaceshipController::SpaceshipController(
+	//int up, 
+	//int down, 
+	int left, 
+	int right, 
+	int stop)
 {
-	keyup = up;
-	keydown = down;
+	//keyup = up;
+	//keydown = down;
 	keyLeft = left;
 	keyright = right;
 	keystop = stop;
@@ -13,22 +18,12 @@ SpaceshipController::SpaceshipController(int up, int down, int left, int right, 
 
 void SpaceshipController::update(SpaceshipLocomotion & loco)
 {
-	float hInput = 0.0f;
-	hInput -= sfw::getKey(keyLeft);
-	hInput += sfw::getKey(keyright);
-
-	float vInput = 0.0f;
-
-	vInput -= sfw::getKey(keydown);
-	vInput += sfw::getKey(keyup);
+	float horizontalInput = 0.0f;
+	horizontalInput += sfw::getKey(keyLeft);
+	horizontalInput -= sfw::getKey(keyright);
 
 	float bInput = sfw::getKey(keystop);
 
-
-
-	loco.doTurn(hInput);
-	loco.doThrust(vInput);
+	loco.doThrust(horizontalInput);
 	loco.doStop(bInput);
-
-
 }
